@@ -1,11 +1,11 @@
 import {
-    onSuggestionsFetchRequested,
-    onSuggestionsClearRequested,
     getSuggestionValue,
+    onSuggestionsClearRequested,
+    onSuggestionsFetchRequested,
     renderSuggestion
 } from '../source/autocomplete';
 
-import { asyncFill } from '../source/external-handlers';
+import {asyncFill} from '../source/external-handlers';
 
 export default {
     initialValues: {

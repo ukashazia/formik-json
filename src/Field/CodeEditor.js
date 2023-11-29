@@ -1,8 +1,8 @@
 import React from 'react';
-import { Controlled as CodeMirror } from 'react-codemirror2';
-import { changeHandler, setFieldValueWrapper } from '../utils';
+import {Controlled as CodeMirror} from 'react-codemirror2';
+import {changeHandler, setFieldValueWrapper} from '../utils';
 
-const CodeEditor = ({ config, formik, value, error }) => {
+const CodeEditor = ({config, formik, value, error}) => {
     const {
         name,
         options,
@@ -10,15 +10,15 @@ const CodeEditor = ({ config, formik, value, error }) => {
         attributes,
         fieldClass = ''
     } = config;
-    const { setFieldValue, handleBlur } = formik;
+    const {setFieldValue, handleBlur} = formik;
     const selectedValue = value || '';
 
     return (
         <CodeMirror
-            id={ name }
-            name={ name }
-            options={ options }
-            className={ fieldClass + ( error ? ' is-invalid ' : '' ) }
+            id={name}
+            name={name}
+            options={options}
+            className={fieldClass + (error ? ' is-invalid ' : '')}
             onBeforeChange={(editor, data, value) => {
                 changeHandler(setFieldValueWrapper(setFieldValue, name), formik, config, value)
             }}
@@ -33,8 +33,8 @@ const CodeEditor = ({ config, formik, value, error }) => {
                     })
                 );
             }}
-            value={ selectedValue }
-            { ...attributes }
+            value={selectedValue}
+            {...attributes}
         />
     );
 }

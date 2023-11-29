@@ -1,31 +1,31 @@
 import _ from 'lodash';
 import Element from '../Element';
-import { getName } from '../utils';
-import React, { useState } from 'react';
+import {getName} from '../utils';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 const Fieldset = ({
-    config: {
-        name: containerName = '',
-        title,
-        elements,
-        collapsible = true,
-        collapsed = false,
-        hasHeaderIcon = true,
-        comment,
-        commentClass = 'text-muted d-block mb-3',
-        headerIconClass = 'fa fa-align-justify',
-        cardClass = 'card flutter-fieldset',
-        cardHeaderClass = 'card-header',
-        cardHeaderIconCollapsedClass = 'fas fa-angle-down',
-        cardHeaderIconDisclosedClass = 'fas fa-angle-up',
-        cardHeaderActionsClass = 'card-header-actions',
-        cardBodyClass = 'card-body'
-    }
-}) => {
-    const [ isCollapsed, setIsCollapsed ] = useState(collapsible && collapsed);
+                      config: {
+                          name: containerName = '',
+                          title,
+                          elements,
+                          collapsible = true,
+                          collapsed = false,
+                          hasHeaderIcon = true,
+                          comment,
+                          commentClass = 'text-muted d-block mb-3',
+                          headerIconClass = 'fa fa-align-justify',
+                          cardClass = 'card flutter-fieldset',
+                          cardHeaderClass = 'card-header',
+                          cardHeaderIconCollapsedClass = 'fas fa-angle-down',
+                          cardHeaderIconDisclosedClass = 'fas fa-angle-up',
+                          cardHeaderActionsClass = 'card-header-actions',
+                          cardBodyClass = 'card-body'
+                      }
+                  }) => {
+    const [isCollapsed, setIsCollapsed] = useState(collapsible && collapsed);
     const toggle = (event) => {
-        if(false === collapsible) {
+        if (false === collapsible) {
             event.preventDefault();
             return;
         }
@@ -33,27 +33,27 @@ const Fieldset = ({
     }
 
     return (
-        <div className={ cardClass }>
-            { !!title &&
-                <div className={ cardHeaderClass } onClick={ toggle }>
-                    { hasHeaderIcon && <i className={ headerIconClass }></i> }
-                    { title }
-                    { collapsible && <div className={ cardHeaderActionsClass }>
+        <div className={cardClass}>
+            {!!title &&
+                <div className={cardHeaderClass} onClick={toggle}>
+                    {hasHeaderIcon && <i className={headerIconClass}></i>}
+                    {title}
+                    {collapsible && <div className={cardHeaderActionsClass}>
                         <a className="card-header-action btn btn-minimize">
-                            <i className={ isCollapsed ?  cardHeaderIconCollapsedClass : cardHeaderIconDisclosedClass }></i>
+                            <i className={isCollapsed ? cardHeaderIconCollapsedClass : cardHeaderIconDisclosedClass}></i>
                         </a>
-                    </div> }
+                    </div>}
 
                 </div>
             }
-            <div className={ 'collapse ' + (!isCollapsed ? 'show': '') }>
-                <div className={ cardBodyClass }>
-                    { comment && <small className={ commentClass }>{ comment }</small> }
-                    { _.map(elements, ({ name, ...config }, key) => (
+            <div className={'collapse ' + (!isCollapsed ? 'show' : '')}>
+                <div className={cardBodyClass}>
+                    {comment && <small className={commentClass}>{comment}</small>}
+                    {_.map(elements, ({name, ...config}, key) => (
                         <Element
-                            key={ key }
-                            update={ !isCollapsed }
-                            config={{ ...config, name: getName(config.type, name, containerName) }}
+                            key={key}
+                            update={!isCollapsed}
+                            config={{...config, name: getName(config.type, name, containerName)}}
                         />
                     ))}
                 </div>

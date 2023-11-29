@@ -1,13 +1,11 @@
 import {
-    onSuggestionsFetchRequested,
-    onSuggestionsClearRequested,
     getSuggestionValue,
+    onSuggestionsClearRequested,
+    onSuggestionsFetchRequested,
     renderSuggestion
 } from '../source/autocomplete';
 
-import {
-    save
-} from '../source/external-handlers';
+import {save} from '../source/external-handlers';
 
 export default {
     onSubmit: save.bind(this),

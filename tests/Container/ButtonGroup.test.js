@@ -1,18 +1,12 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, shallow, mount } from 'enzyme';
-import { render, unmountComponentAtNode } from 'react-dom'
-import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer
-} from '../test-utils'
-import { Form } from 'src';
+import {configure, mount} from 'enzyme';
+import {checkConsoleError, prepareContainer, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('ButtonGroup', () => {
     const config = {
@@ -29,38 +23,44 @@ describe('ButtonGroup', () => {
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders', () => {
-        const withElements = { buttonGroup: {
-            elements: { save: { ...button } },
-            ...container
-        }}
-        const wrapper = mount(<Form { ...prepareForm({ elements: withElements }) } />);
+        const withElements = {
+            buttonGroup: {
+                elements: {save: {...button}},
+                ...container
+            }
+        }
+        const wrapper = mount(<Form {...prepareForm({elements: withElements})} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
     it('throws error when "elements" is not defined', () => {
-        const buttonsGroup = { buttonsGroup: { ...container } };
-        const wrapper = mount(<Form { ...prepareForm({ elements: buttonsGroup }) } />);
+        const buttonsGroup = {buttonsGroup: {...container}};
+        const wrapper = mount(<Form {...prepareForm({elements: buttonsGroup})} />);
         expect(console.error.threw).toEqual(true);
     });
 
     it('adds class to button group container', () => {
-        const withButtonContainerClass = { buttonGroup: {
-            buttonsContainerClass: config.buttonsContainerClass,
-            ...container
-        }}
-        const wrapper = mount(<Form { ...prepareForm({ elements: withButtonContainerClass }) } />);
+        const withButtonContainerClass = {
+            buttonGroup: {
+                buttonsContainerClass: config.buttonsContainerClass,
+                ...container
+            }
+        }
+        const wrapper = mount(<Form {...prepareForm({elements: withButtonContainerClass})} />);
         expect(wrapper.find('div').first().props().className).toEqual(config.buttonsContainerClass);
     });
 
     it('adds class to button group', () => {
-        const withButtonGroupClass = { buttonGroup: {
-            buttonGroupClass: config.buttonGroupClass,
-            ...container
-        }}
-        const wrapper = mount(<Form { ...prepareForm({ elements: withButtonGroupClass }) } />);
+        const withButtonGroupClass = {
+            buttonGroup: {
+                buttonGroupClass: config.buttonGroupClass,
+                ...container
+            }
+        }
+        const wrapper = mount(<Form {...prepareForm({elements: withButtonGroupClass})} />);
         expect(wrapper.find('div').children().props().className).toEqual(config.buttonGroupClass);
     });
 })

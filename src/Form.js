@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import React, { useEffect, useCallback, useState } from 'react';
-import { Formik } from 'formik';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Formik} from 'formik';
 import Element from './Element';
-import { SchemaProvider } from './withFormConfig';
-import { prepareValidationSchema } from './utils';
-import Rules from '@flipbyte/yup-schema';
+import {SchemaProvider} from './withFormConfig';
+import {prepareValidationSchema} from './utils';
+import Rules from './yupSchema';
 
-const FormikForm = ({ onUpdate, schema, ...formik }) => {
+const FormikForm = ({onUpdate, schema, ...formik}) => {
     /**
      * Callback if provided will be vcalled when form values change
      */
@@ -16,16 +16,19 @@ const FormikForm = ({ onUpdate, schema, ...formik }) => {
         }
     }, [formik.values]);
 
-    return <Element config={schema} />;
+    return <Element config={schema}/>;
 };
 
-const Form = React.forwardRef(({ schema, onUpdate = () => { }, initialValues = {}, ...rest }, ref) => {
+const Form = React.forwardRef(({
+                                   schema, onUpdate = () => {
+    }, initialValues = {}, ...rest
+                               }, ref) => {
     const [validationSchema, setValidationSchema] = useState(null);
 
     /**
      * Initialize validation schema.
      *
-     * Convert the validation schema rules from yup-schema array to yup object
+     * Convert the validation schema rules from yupSchema array to yup object
      */
     const initValidationSchema = useCallback(() => {
         const yupSchema = prepareValidationSchema(schema);
@@ -44,13 +47,13 @@ const Form = React.forwardRef(({ schema, onUpdate = () => { }, initialValues = {
         initValidationSchema();
     }, [schema]);
 
-    const formProps = { ...rest, initialValues };
+    const formProps = {...rest, initialValues};
     if (null !== validationSchema) {
         formProps.validationSchema = validationSchema;
     }
 
     return (
-        <SchemaProvider value={{ validationSchema, schema }}>
+        <SchemaProvider value={{validationSchema, schema}}>
             <Formik
                 {...formProps}
                 innerRef={ref}

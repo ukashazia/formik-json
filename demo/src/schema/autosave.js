@@ -1,4 +1,4 @@
-import { autosave } from '../source/external-handlers';
+import {autosave} from '../source/external-handlers';
 
 export default {
     onUpdate: autosave.bind(this),

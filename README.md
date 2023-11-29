@@ -5,7 +5,7 @@ Javascript Object for defining the elements.
 
 ## Examples
 
--   [Demo](https://flipbyte.github.io/formik-json-schema)
+- [Demo](https://flipbyte.github.io/formik-json-schema)
 
 ## Pre-requisites
 
@@ -85,7 +85,7 @@ import { Form } from '@flipbyte/formik-json';
 Form component requires the following properties:
 
 | Key               | Description                                                                                         |
-| ----------------- | --------------------------------------------------------------------------------------------------- |
+|-------------------|-----------------------------------------------------------------------------------------------------|
 | schema            | your schema object                                                                                  |
 | onUpdate          | callback when the values are updated                                                                |
 | initialValues     | check [<Formik />](https://jaredpalmer.com/formik/docs/api/formik)                                  |
@@ -103,7 +103,7 @@ define either new containers or fields.
 schema object that has the following keys (all required):
 
 | Key      | Description                                                                                                     |
-| -------- | --------------------------------------------------------------------------------------------------------------- |
+|----------|-----------------------------------------------------------------------------------------------------------------|
 | id       | the ID for the form                                                                                             |
 | label    | the title for the form                                                                                          |
 | type     | "container"                                                                                                     |
@@ -126,7 +126,7 @@ containers and keys or use the ones that come with the module.
 #### Common container properties
 
 | Not applicable              | Field               | Property | Description                                                                                                  |
-| --------------------------- | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+|-----------------------------|---------------------|----------|--------------------------------------------------------------------------------------------------------------|
 | none                        | type                | String   | "container"                                                                                                  |
 | button-group                | name                | String   | is used to prepend parent container's name to the children fields when "prefixNameToElement" is set to true. |
 | editable-grid, tabs         | elements            | {}       | is an object that can hold one or more fields or containers within it.                                       |
@@ -138,7 +138,7 @@ containers and keys or use the ones that come with the module.
 #### Container specific properties
 
 | Container     | Field                  | Property                                                  | Description                                                                                                                    |
-| ------------- | ---------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|---------------|------------------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | editable-grid | renderer               | String                                                    | editable-grid                                                                                                                  |
 |               | fields                 | {}                                                        | An object with one or more field definitions in a key-value pair                                                               |
 |               | buttons                | `{"add": "Add", "remove": "X", "duplicate": "Duplicate"}` | has 3 properties, all optional. These can be either function that returns the button or string which is the label for a button |
@@ -182,34 +182,34 @@ containers and keys or use the ones that come with the module.
 
 #### Common field properties
 
-| Field | Type           |     Property    | Description                                                                   |                                                                                                                                                                             |
-| :---- | :------------- | :-------------: | :---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|       | name           |      String     | html field name attribute                                                     |                                                                                                                                                                             |
-|       | label          |      String     | the label for the field                                                       |                                                                                                                                                                             |
-|       | type           |      String     | "field"                                                                       |                                                                                                                                                                             |
-|       | labelClass     |      String     | html class for the label html element                                         |                                                                                                                                                                             |
-|       | formGroupClass |      String     | html class for the div that wraps the form field                              |                                                                                                                                                                             |
-|       | validation     |      String     | Check [yup-schema](https://github.com/flipbyte/yup-schema)                    |                                                                                                                                                                             |
-|       | showWhen       |      String     | Check [when-condition](https://github.com/flipbyte/when-condition)            |                                                                                                                                                                             |
-|       | enabledWhen    |      String     | Check [when-condition](https://github.com/flipbyte/when-condition)            |                                                                                                                                                                             |
-|       | fieldClass     |      String     | html class for the main html/3-rd party form field                            |                                                                                                                                                                             |
-|       | comment        |      String     | comment / description that goes below the field                               |                                                                                                                                                                             |
-|       | commentAs      |      String     | define the HTML tag to be used for wrapping the comment. (Default: <small />) |                                                                                                                                                                             |
-|       | commentClass   |      String     | html class for the comment element                                            |                                                                                                                                                                             |
+| Field | Type           |    Property     | Description                                                                   |                                                                                                                                                                                |
+|:------|:---------------|:---------------:|:------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|       | name           |     String      | html field name attribute                                                     |                                                                                                                                                                                |
+|       | label          |     String      | the label for the field                                                       |                                                                                                                                                                                |
+|       | type           |     String      | "field"                                                                       |                                                                                                                                                                                |
+|       | labelClass     |     String      | html class for the label html element                                         |                                                                                                                                                                                |
+|       | formGroupClass |     String      | html class for the div that wraps the form field                              |                                                                                                                                                                                |
+|       | validation     |     String      | Check [yup-schema](https://github.com/flipbyte/yup-schema)                    |                                                                                                                                                                                |
+|       | showWhen       |     String      | Check [when-condition](https://github.com/flipbyte/when-condition)            |                                                                                                                                                                                |
+|       | enabledWhen    |     String      | Check [when-condition](https://github.com/flipbyte/when-condition)            |                                                                                                                                                                                |
+|       | fieldClass     |     String      | html class for the main html/3-rd party form field                            |                                                                                                                                                                                |
+|       | comment        |     String      | comment / description that goes below the field                               |                                                                                                                                                                                |
+|       | commentAs      |     String      | define the HTML tag to be used for wrapping the comment. (Default: <small />) |                                                                                                                                                                                |
+|       | commentClass   |     String      | html class for the comment element                                            |                                                                                                                                                                                |
 |       | template       | React Component | String                                                                        | define your custom template for the field (check `src/Template/Default.js`) or set the template in the template registry using `registerTemplate` and pass the string key here |
-|       | errorAs        |      String     | define the HTML tag to be used for wrapping the error. (Default: <div />)     |                                                                                                                                                                             |
-|       | errorClass     |      String     | html class for the error element                                              |                                                                                                                                                                             |
+|       | errorAs        |     String      | define the HTML tag to be used for wrapping the error. (Default: <div />)     |                                                                                                                                                                                |
+|       | errorClass     |     String      | html class for the error element                                              |                                                                                                                                                                                |
 
 #### Field specific properties
 
 | Field         | Type             | Property | Description                                                                                                                                                                                                                                             |
-| :------------ | :--------------- | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|:--------------|:-----------------|:--------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | checkbox      | renderer         |  String  | checkbox                                                                                                                                                                                                                                                |
 |               | name             |  String  | html field name attribute                                                                                                                                                                                                                               |
 |               | label            |  String  | the label for the field                                                                                                                                                                                                                                 |
 |               | type             |  String  | "field"                                                                                                                                                                                                                                                 |
 |               | attributes       |    {}    | is an object that can hold other html field related attributes (if any). Only ones that are not defined using any other key will be used. For example: name already has it's own key and hence "name" key inside the attributes object will do nothing. |
-|               | options          |   Array  | Array of objects with keys "value" and "label"                                                                                                                                                                                                          |
+|               | options          |  Array   | Array of objects with keys "value" and "label"                                                                                                                                                                                                          |
 | code-editor   | renderer         |  String  | code-editor                                                                                                                                                                                                                                             |
 |               | name             |  String  | html field name attribute                                                                                                                                                                                                                               |
 |               | label            |  String  | the label for the field                                                                                                                                                                                                                                 |

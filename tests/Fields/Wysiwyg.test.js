@@ -1,17 +1,12 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer
-} from '../test-utils'
-import { Form } from 'src';
+import {configure, mount} from 'enzyme';
+import {checkConsoleError, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('Wysiwyg', () => {
     const config = {
@@ -29,8 +24,8 @@ describe('Wysiwyg', () => {
         modules: {
             toolbar: [
                 ['bold', 'italic', 'underline', 'strike'],
-                [{ 'font': [] }],
-                [{ 'align': [] }],
+                [{'font': []}],
+                [{'align': []}],
 
                 ['clean']
             ],
@@ -48,22 +43,26 @@ describe('Wysiwyg', () => {
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            wysiwyg: wysiwyg
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                wysiwyg: wysiwyg
+            }
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
     it('renders with custom toolbar options', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            wysiwyg: {
-                ...wysiwyg,
-                options
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                wysiwyg: {
+                    ...wysiwyg,
+                    options
+                }
             }
-        } }) } />);
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 })

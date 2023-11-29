@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Element from '../Element';
-import { joinNames } from '../utils';
-import React, { useEffect, useRef, useState } from 'react';
+import {joinNames} from '../utils';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import shallowequal from 'shallowequal';
 
@@ -15,7 +15,7 @@ const tabPaneActiveInvalid = {
     border: '1px solid #dc3545'
 };
 
-const Tabs = ({ config = {} }) => {
+const Tabs = ({config = {}}) => {
     const {
         elements = {},
         name: containerName = '',
@@ -31,17 +31,17 @@ const Tabs = ({ config = {} }) => {
         tabPaneClass = 'tab-pane fade show',
     } = config;
     const tabContentEl = useRef({});
-    const [ activeTab, setActiveTab ] = useState(_.first(_.keys(elements)));
-    const [ isValid, setIsValid ] = useState([]);
-    const [ tabs, setTabs ] = useState({});
-    const [ tabContent, setTabContent ] = useState({});
-    const [ tabId ] = useState(_.uniqueId('list-tab-'));
+    const [activeTab, setActiveTab] = useState(_.first(_.keys(elements)));
+    const [isValid, setIsValid] = useState([]);
+    const [tabs, setTabs] = useState({});
+    const [tabContent, setTabContent] = useState({});
+    const [tabId] = useState(_.uniqueId('list-tab-'));
 
     const tabValidations = _(isValid);
 
     useEffect(() => {
         _.map(elements, (tab, key) => {
-            const { label, elements: content, active, name, comment, commentClass } = tab;
+            const {label, elements: content, active, name, comment, commentClass} = tab;
 
             setTabs((state) => ({
                 ...state,
@@ -50,7 +50,7 @@ const Tabs = ({ config = {} }) => {
 
             setTabContent((state) => ({
                 ...state,
-                [key]: { name, content, comment, commentClass }
+                [key]: {name, content, comment, commentClass}
             }));
 
             if (active) {
@@ -62,62 +62,62 @@ const Tabs = ({ config = {} }) => {
     useEffect(() => {
         const node = tabContentEl.current;
         var panes = _.map(node.children, child => child.querySelector('.is-invalid') !== null)
-        if(!shallowequal(isValid, panes)) {
+        if (!shallowequal(isValid, panes)) {
             setIsValid(panes)
         }
     });
 
     return (
-        <div className={ cardClass }>
-            <div className={ cardBodyClass }>
-                <div className={ rowClass }>
-                    <div className={ tabColumnClass }>
+        <div className={cardClass}>
+            <div className={cardBodyClass}>
+                <div className={rowClass}>
+                    <div className={tabColumnClass}>
                         <nav>
-                            <div id={ tabId } className={ tabListClass }>
-                                { _.map(tabs, (tab, key) => {
+                            <div id={tabId} className={tabListClass}>
+                                {_.map(tabs, (tab, key) => {
                                     const tabInvalid = tabValidations.next().value === true;
                                     return <a
-                                        key={ key }
-                                        href={ null }
+                                        key={key}
+                                        href={null}
                                         className={
-                                            tabListItemClass 
-                                            + ( activeTab === key ? tabActiveClass : '' ) 
-                                            + ( tabInvalid ? ' is-invalid ' : '' )
+                                            tabListItemClass
+                                            + (activeTab === key ? tabActiveClass : '')
+                                            + (tabInvalid ? ' is-invalid ' : '')
                                         }
                                         style={(
                                             tabInvalid ? (
                                                 activeTab === key
-                                                ? tabPaneActiveInvalid
-                                                : tabPaneInvalid
+                                                    ? tabPaneActiveInvalid
+                                                    : tabPaneInvalid
                                             ) : null
                                         )}
                                         onClick={() => setActiveTab(key)}
                                     >
-                                        { tab }
+                                        {tab}
                                     </a>
-                                }) }
+                                })}
                             </div>
                         </nav>
                     </div>
-                    <div className={ contentColumnClass }>
-                        <div ref={ tabContentEl } className={ tabContentClass }>
-                            { _.map(tabContent, (
-                                { name: tabName = '', content, comment, commentClass = 'text-muted d-block mb-3' },
+                    <div className={contentColumnClass}>
+                        <div ref={tabContentEl} className={tabContentClass}>
+                            {_.map(tabContent, (
+                                {name: tabName = '', content, comment, commentClass = 'text-muted d-block mb-3'},
                                 tabKey,
                                 index
                             ) => (
                                 <div
-                                    key={ tabKey }
+                                    key={tabKey}
                                     className={
-                                        `${tabPaneClass} ${activeTab === tabKey ? tabActiveClass : ''}` 
+                                        `${tabPaneClass} ${activeTab === tabKey ? tabActiveClass : ''}`
                                     }
                                 >
-                                    { comment && <small className={ commentClass }>{ comment }</small> }
-                                    { _.map(content, ({ name, ...rest }, key) => (
+                                    {comment && <small className={commentClass}>{comment}</small>}
+                                    {_.map(content, ({name, ...rest}, key) => (
                                         <Element
-                                            key={ key }
-                                            config={{ ...rest, name: joinNames(containerName, tabName, name) }}
-                                            update={ activeTab === tabKey }
+                                            key={key}
+                                            config={{...rest, name: joinNames(containerName, tabName, name)}}
+                                            update={activeTab === tabKey}
                                         />
                                     ))}
                                 </div>

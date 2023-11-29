@@ -1,18 +1,12 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer,
-    submitButton
-} from '../test-utils'
-import { Form } from 'src';
+import {configure, mount} from 'enzyme';
+import {checkConsoleError, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('Checkbox', () => {
     const config = {
@@ -47,19 +41,23 @@ describe('Checkbox', () => {
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders single checkbox', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            singleCheckbox: singleCheckbox
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                singleCheckbox: singleCheckbox
+            }
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
     it('renders multiple checkboxes', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            multipleCheckboxes: multipleCheckboxes
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                multipleCheckboxes: multipleCheckboxes
+            }
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
