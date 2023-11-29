@@ -1,17 +1,12 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, mount, render } from 'enzyme';
-import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer
-} from '../test-utils'
-import { Form } from 'src';
+import {configure, mount, render} from 'enzyme';
+import {checkConsoleError, prepareContainer, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('Fieldset', () => {
     const config = {
@@ -33,58 +28,64 @@ describe('Fieldset', () => {
         label: "Text",
         fieldType: "text",
     });
-    const withElements = { fieldset: {
-        elements: {
-            text: field
-        },
-        ...container
-    }}
-    const withNoElements = { fieldset: { ...container } };
-    const withCardClass = { fieldset: { cardClass: config.cardClass, ...container } };
-    const withCardHeaderClass = { fieldset: { cardHeaderClass: config.cardHeaderClass, ...container } };
-    const withNameAsPrefixForChildren = { fieldset: {
-        name: config.containerName,
-        prefixNameToElement: true,
-        elements: { text: { ...field } },
-        ...container
-    }};
-    const prefixWithoutName = { fieldset: {
-        prefixNameToElement: true,
-        elements: { text: field },
-        ...container
-    }};
+    const withElements = {
+        fieldset: {
+            elements: {
+                text: field
+            },
+            ...container
+        }
+    }
+    const withNoElements = {fieldset: {...container}};
+    const withCardClass = {fieldset: {cardClass: config.cardClass, ...container}};
+    const withCardHeaderClass = {fieldset: {cardHeaderClass: config.cardHeaderClass, ...container}};
+    const withNameAsPrefixForChildren = {
+        fieldset: {
+            name: config.containerName,
+            prefixNameToElement: true,
+            elements: {text: {...field}},
+            ...container
+        }
+    };
+    const prefixWithoutName = {
+        fieldset: {
+            prefixNameToElement: true,
+            elements: {text: field},
+            ...container
+        }
+    };
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: withElements }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withElements})} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
     it('throws error when "elements" is not defined', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: withNoElements }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withNoElements})} />);
         expect(console.error.threw).toEqual(true);
     });
 
     it('adds card class to fieldset', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: withCardClass }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withCardClass})} />);
         expect(wrapper.find('div').first().props().className).toEqual(config.cardClass);
     });
 
     it('adds card header when "title" is defined', () => {
         const withCardHeader = {
-            fieldset: { title: config.title, ...container }
+            fieldset: {title: config.title, ...container}
         };
-        const wrapper = mount(<Form { ...prepareForm({ elements: withCardHeader }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withCardHeader})} />);
         expect(wrapper.find(`div.${config.defaultCardHeaderClass}`).exists()).toEqual(true);
         expect(wrapper.find('div').first().text()).toEqual(config.title);
     });
 
     it('does not add card header when "title" is not defined', () => {
-        const withoutCardHeader = { fieldset: { ...container } };
-        const wrapper = mount(<Form { ...prepareForm({ elements: withoutCardHeader }) } />);
+        const withoutCardHeader = {fieldset: {...container}};
+        const wrapper = mount(<Form {...prepareForm({elements: withoutCardHeader})} />);
         expect(wrapper.find(`div.${config.defaultCardHeaderClass}`).exists()).toEqual(false);
     });
 
@@ -96,7 +97,7 @@ describe('Fieldset', () => {
                 ...container
             }
         };
-        const wrapper = mount(<Form { ...prepareForm({ elements: withCardHeaderClass }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withCardHeaderClass})} />);
         expect(wrapper.find(`div.${config.cardHeaderClass}`).exists()).toEqual(true);
     });
 
@@ -108,23 +109,25 @@ describe('Fieldset', () => {
                 ...container
             }
         };
-        const wrapper = mount(<Form { ...prepareForm({ elements: withCardHeaderClass }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withCardHeaderClass})} />);
         expect(wrapper.find(`div.${config.defaultCardHeaderActionsClass}`).exists()).toEqual(true);
     });
 
-    context('on header click', function() {
+    context('on header click', function () {
         const fieldsetWithTitle = {
             title: config.title,
             ...container
         };
 
         it('hide fieldset body when "collapsible" is true and show down arrow', () => {
-            const wrapper = mount(<Form { ...prepareForm({ elements: {
-                fieldset: {
-                    collapsible: true,
-                    ...fieldsetWithTitle
+            const wrapper = mount(<Form {...prepareForm({
+                elements: {
+                    fieldset: {
+                        collapsible: true,
+                        ...fieldsetWithTitle
+                    }
                 }
-            } }) } />);
+            })} />);
             wrapper.find(`div.${config.defaultCardHeaderClass}`).simulate('click');
             expect(wrapper.find('div.collapse').hasClass('show')).toEqual(false);
             expect(wrapper.find(`div.${config.defaultCardHeaderActionsClass} i.${config.defaultIconDownClass}`).exists())
@@ -133,25 +136,29 @@ describe('Fieldset', () => {
         });
 
         it('don\'t hide fieldset body when "collapsible" is false and don\'t show header actions', () => {
-            const wrapper = mount(<Form { ...prepareForm({ elements: {
-                fieldset: {
-                    collapsible: false,
-                    ...fieldsetWithTitle
+            const wrapper = mount(<Form {...prepareForm({
+                elements: {
+                    fieldset: {
+                        collapsible: false,
+                        ...fieldsetWithTitle
+                    }
                 }
-            } }) } />);
+            })} />);
             wrapper.find(`div.${config.defaultCardHeaderClass}`).simulate('click');
             expect(wrapper.find('div.collapse').hasClass('show')).toEqual(true);
             expect(wrapper.find(`div.${config.defaultCardHeaderActionsClass}`).exists()).toEqual(false);
         });
 
         it('show fieldset body when "collapsible" is true and "collapsed" is true', () => {
-            const wrapper = mount(<Form { ...prepareForm({ elements: {
-                fieldset: {
-                    collapsible: true,
-                    collapsed: true,
-                    ...fieldsetWithTitle
+            const wrapper = mount(<Form {...prepareForm({
+                elements: {
+                    fieldset: {
+                        collapsible: true,
+                        collapsed: true,
+                        ...fieldsetWithTitle
+                    }
                 }
-            } }) } />);
+            })} />);
             wrapper.find(`div.${config.defaultCardHeaderClass}`).simulate('click');
             expect(wrapper.find('div.collapse').hasClass('show')).toEqual(true);
             expect(wrapper.find(`div.${config.defaultCardHeaderActionsClass} i.${config.defaultIconUpClass}`).exists())
@@ -161,22 +168,22 @@ describe('Fieldset', () => {
 
     it('adds card body class to fieldset body', () => {
         const withCardBodyClass = {
-            fieldset: { cardBodyClass: config.cardBodyClass, ...container }
+            fieldset: {cardBodyClass: config.cardBodyClass, ...container}
         };
-        const wrapper = mount(<Form { ...prepareForm({ elements: withCardBodyClass }) } />);
+        const wrapper = mount(<Form {...prepareForm({elements: withCardBodyClass})} />);
         expect(wrapper.find(`div.${config.cardBodyClass}`).exists()).toEqual(true);
     });
 
-    context('prefixNameToElement', function() {
+    context('prefixNameToElement', function () {
         it('prefix name to direct child element when "prefixNameToElement" is true and "name" is set', () => {
-            const { containerName, fieldName } = config;
-            const wrapper = render(<Form { ...prepareForm({ elements: withNameAsPrefixForChildren }) } />);
+            const {containerName, fieldName} = config;
+            const wrapper = render(<Form {...prepareForm({elements: withNameAsPrefixForChildren})} />);
             expect(wrapper.find('input').attr('name')).toEqual(`${containerName}.${fieldName}`);
         });
 
         it('uses only field name when "prefixNameToElement" is true and "name" is not defined', () => {
-            const { fieldName } = config;
-            const wrapper = render(<Form { ...prepareForm({ elements: prefixWithoutName }) } />);
+            const {fieldName} = config;
+            const wrapper = render(<Form {...prepareForm({elements: prefixWithoutName})} />);
             expect(wrapper.find('input').attr('name')).toEqual(fieldName);
         });
     })

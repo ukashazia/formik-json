@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
-import { changeHandler, setFieldValueWrapper } from '../utils';
+import {changeHandler, setFieldValueWrapper} from '../utils';
 
-const prepareOptions = ( options ) => (
+const prepareOptions = (options) => (
     _.reduce(options, (result, value) => {
-        if(!_.isObject(value) && !_.isEmpty(value)) {
-            result.push({ value: value, label: value })
+        if (!_.isObject(value) && !_.isEmpty(value)) {
+            result.push({value: value, label: value})
         } else {
             result.push(value);
         }
@@ -16,22 +16,22 @@ const prepareOptions = ( options ) => (
     }, [])
 );
 
-const getSelectedOptions = ( options, values, isCreatable ) => {
-    const getSelectedOption = ( value ) => {
-        const selectedOption = _.filter(options, _.matches({ value }));
+const getSelectedOptions = (options, values, isCreatable) => {
+    const getSelectedOption = (value) => {
+        const selectedOption = _.filter(options, _.matches({value}));
         return !_.isEmpty(selectedOption)
             ? selectedOption
-            : isCreatable ? [{ value, label: value }] : null;
+            : isCreatable ? [{value, label: value}] : null;
     }
 
     if (values) {
-        if(!_.isObject(values)) {
+        if (!_.isObject(values)) {
             return getSelectedOption(values)
         }
 
         return _.reduce(values, (result, value) => {
             const selectedOption = getSelectedOption(value);
-            if(_.isEmpty(selectedOption)) {
+            if (_.isEmpty(selectedOption)) {
                 return result;
             }
 
@@ -42,7 +42,7 @@ const getSelectedOptions = ( options, values, isCreatable ) => {
     return null;
 }
 
-const ReactSelect = ({ config, formik, value, error }) => {
+const ReactSelect = ({config, formik, value, error}) => {
     const {
         name,
         isMulti,
@@ -55,7 +55,7 @@ const ReactSelect = ({ config, formik, value, error }) => {
         options: initialOptions,
         ...attributes
     } = config;
-    const { setFieldValue, handleBlur } = formik;
+    const {setFieldValue, handleBlur} = formik;
     const options = prepareOptions(initialOptions);
     const selectedValue = value || defaultValue;
     const selectedOption = getSelectedOptions(options, selectedValue, isCreatable);
@@ -69,11 +69,11 @@ const ReactSelect = ({ config, formik, value, error }) => {
         isDisabled,
         id: name,
         inputValue,
-        className: fieldClass + ( error ? ' is-invalid ' : '' ),
-        onChange: ( selectedOptions ) => {
+        className: fieldClass + (error ? ' is-invalid ' : ''),
+        onChange: (selectedOptions) => {
             const selectedValues = !isMulti
                 ? selectedOptions.value
-                : _.reduce(selectedOptions, (result, option) => [ ...result, option.value ], []);
+                : _.reduce(selectedOptions, (result, option) => [...result, option.value], []);
 
 
             return changeHandler(
@@ -107,7 +107,7 @@ const ReactSelect = ({ config, formik, value, error }) => {
                         setFieldValueWrapper(setFieldValue, name),
                         formik,
                         config,
-                        [ ...selectedValue, inputValue ],
+                        [...selectedValue, inputValue],
                         'onChange'
                     );
                     setInputValue('');
@@ -116,14 +116,14 @@ const ReactSelect = ({ config, formik, value, error }) => {
         },
         ...attributes
     };
-    selectProps = _.assign(selectProps, { options });
+    selectProps = _.assign(selectProps, {options});
 
     if (selectedOption) {
         selectProps.value = selectedOption;
     }
 
     const SelectComponent = isCreatable ? CreatableSelect : Select;
-    return <SelectComponent { ...selectProps } />;
+    return <SelectComponent {...selectProps} />;
 }
 
 export default React.memo(ReactSelect);

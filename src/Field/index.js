@@ -1,4 +1,4 @@
-import { registerField } from '../registry';
+import {registerField} from '../registry';
 
 import Text from './Text';
 import Radio from './Radio';
@@ -20,7 +20,7 @@ import Autocomplete from './Autocomplete';
     'number',
     'url',
     'date'
-].map(( type ) => registerField(type, Text));
+].map((type) => registerField(type, Text));
 
 registerField('radio', Radio);
 registerField('button', Button);

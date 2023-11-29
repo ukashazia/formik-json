@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    save
-} from '../source/external-handlers';
+import {save} from '../source/external-handlers';
 
 export default {
     onSubmit: save.bind(this),
@@ -162,8 +160,8 @@ export default {
                                                                 <button
                                                                     type="button"
                                                                     className="btn duplicate"
-                                                                    onClick={ actions.push.bind(this, value) }>
-                                                                    <i className="fa fa-copy" />
+                                                                    onClick={actions.push.bind(this, value)}>
+                                                                    <i className="fa fa-copy"/>
                                                                 </button>
                                                             )
                                                         }
@@ -499,8 +497,8 @@ export default {
                                                                 <button
                                                                     type="button"
                                                                     className="btn duplicate"
-                                                                    onClick={ actions.push.bind(this, value) }>
-                                                                    <i className="fa fa-copy" />
+                                                                    onClick={actions.push.bind(this, value)}>
+                                                                    <i className="fa fa-copy"/>
                                                                 </button>
                                                             )
                                                         }

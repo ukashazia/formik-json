@@ -1,6 +1,4 @@
-import {
-    save
-} from '../source/external-handlers';
+import {save} from '../source/external-handlers';
 
 export default {
     onSubmit: save.bind(this),
@@ -13,12 +11,12 @@ export default {
         configSource: (formik, config) => {
             return new Promise((resolve, reject) => {
                 fetch('http://google.com') // Call the fetch function passing the url of the API as a parameter
-                    .then(function(data) {
+                    .then(function (data) {
                         // Your code for handling the data you get from the API
                         console.log(data);
                         resolve();
                     })
-                    .catch(function() {
+                    .catch(function () {
                         // This is where you run code if the server returns any errors
                     })
             })

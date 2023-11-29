@@ -36,10 +36,10 @@ const getSuggestions = value => {
     );
 };
 
-export const getSuggestionValue = ( formikProps, config, extra, { label } ) => label;
-export const renderSuggestion = ( formikProps, config, extra, { label } ) => <span>{ label }</span>;
-export const onSuggestionsFetchRequested = ( formikProps, config, { stateUpdater }, { value } ) =>
-    stateUpdater({ suggestions: getSuggestions(value) });
+export const getSuggestionValue = (formikProps, config, extra, {label}) => label;
+export const renderSuggestion = (formikProps, config, extra, {label}) => <span>{label}</span>;
+export const onSuggestionsFetchRequested = (formikProps, config, {stateUpdater}, {value}) =>
+    stateUpdater({suggestions: getSuggestions(value)});
 
-export const onSuggestionsClearRequested = ( formikProps, config, extra ) =>
-    extra.stateUpdater({ suggestions: [] })
+export const onSuggestionsClearRequested = (formikProps, config, extra) =>
+    extra.stateUpdater({suggestions: []})

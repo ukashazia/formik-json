@@ -1,17 +1,11 @@
 import {
-    onSuggestionsFetchRequested,
-    onSuggestionsClearRequested,
     getSuggestionValue,
+    onSuggestionsClearRequested,
+    onSuggestionsFetchRequested,
     renderSuggestion
 } from '../source/autocomplete';
 
-import {
-    alertTextOnChange,
-    hideTextField,
-    save,
-    reset,
-    unsetAutocomplete
-} from '../source/external-handlers';
+import {alertTextOnChange, hideTextField, reset, save, unsetAutocomplete} from '../source/external-handlers';
 
 export default {
     onSubmit: save.bind(this),

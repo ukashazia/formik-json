@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import when from '@flipbyte/when-condition';
-import { FIELD } from './registry';
+import {FIELD} from './registry';
 
 export const setFieldValueWrapper = (setFieldValue, name) => (value) => setFieldValue(name, value);
 export const joinNames = (...args) => _.join(_.filter(args, arg => (_.isString(arg) && arg) || _.isInteger(arg)), '.')
@@ -22,14 +21,14 @@ export const changeHandler = (handler, formikProps, config, data, key = 'onChang
 };
 
 /**
- * Recurively prepare a complete validation schema array for yup-schema from individual
+ * Recurively prepare a complete validation schema array for yupSchema from individual
  * validation arrays passed to fields
  *
  * @param  {array} schema
  * @return {array}
  */
 export const prepareValidationSchema = (schema) => {
-    const { type, elements, name, renderer, validation, prefixNameToElement = false } = schema;
+    const {type, elements, name, renderer, validation, prefixNameToElement = false} = schema;
     if (type === FIELD && validation) {
         return {
             [name]: validation
@@ -49,7 +48,7 @@ export const prepareValidationSchema = (schema) => {
     } else if (!_.isEmpty(elementSchema) && name) {
         result[name] = [['object', elementSchema]];
     } else {
-        result = { ...result, ...elementSchema };
+        result = {...result, ...elementSchema};
     }
 
     return result;

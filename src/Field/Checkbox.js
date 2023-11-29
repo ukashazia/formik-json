@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { changeHandler } from '../utils';
+import {changeHandler} from '../utils';
 
-const Checkbox = ({ config, formik, value, error }) => {
+const Checkbox = ({config, formik, value, error}) => {
     const {
         name,
         attributes,
@@ -13,24 +13,24 @@ const Checkbox = ({ config, formik, value, error }) => {
         formCheckLabelClass = 'form-check-label',
     } = config;
 
-    const { handleChange, handleBlur } = formik;
+    const {handleChange, handleBlur} = formik;
     const checkboxValue = value || [];
-    return options.map(({ value, label}, key, index) => {
+    return options.map(({value, label}, key, index) => {
         const fieldName = _.kebabCase(name + ' ' + value);
         return (
-            <div key={ key } className={ formCheckClass }>
-                <label htmlFor={ fieldName } className={ formCheckLabelClass }>
+            <div key={key} className={formCheckClass}>
+                <label htmlFor={fieldName} className={formCheckLabelClass}>
                     <input
-                        id={ fieldName }
-                        name={ `${name}.${key}` }
-                        className={ fieldClass + ( error ? ' is-invalid ' : '' ) }
+                        id={fieldName}
+                        name={`${name}.${key}`}
+                        className={fieldClass + (error ? ' is-invalid ' : '')}
                         type="checkbox"
-                        checked={ checkboxValue[key] || false }
-                        onChange={ event => {
+                        checked={checkboxValue[key] || false}
+                        onChange={event => {
                             changeHandler(handleChange, formik, config, event);
                             handleBlur(event);
                         }}
-                        { ...attributes } /> { label }
+                        {...attributes} /> {label}
                 </label>
             </div>
         );

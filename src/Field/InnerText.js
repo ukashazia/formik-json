@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InnerText = ({ config, formik, value, error }) => {
+const InnerText = ({config, formik, value, error}) => {
     const {
         name,
         as: Component = 'span',
@@ -10,8 +10,8 @@ const InnerText = ({ config, formik, value, error }) => {
     } = config;
 
     return (
-        <Component className={ htmlClass } { ...attributes }>
-            { value || defaultValue }
+        <Component className={htmlClass} {...attributes}>
+            {value || defaultValue}
         </Component>
     );
 };

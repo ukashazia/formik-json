@@ -1,16 +1,15 @@
 import _ from 'lodash';
-import { connect } from 'formik';
-import React, { useEffect, useState } from 'react';
+import {connect} from 'formik';
+import React, {useEffect, useState} from 'react';
 import ElementRenderer from './Renderer';
-import { FIELD } from './registry';
 import shallowequal from 'shallowequal';
 
-const Element = ({ config, update, formik }) => {
-    const { configSource, dataSource } = config;
-    const [ hasLoadedConfig, setHasLoadedConfig ] = useState(false);
-    const [ hasLoadedData, setHasLoadedData ] = useState(dataSource ? false : true);
-    const [ hasMounted, setHasMounted ] = useState(update !== false);
-    const [ loadedConfig, setLoadedConfig ] = useState(undefined);
+const Element = ({config, update, formik}) => {
+    const {configSource, dataSource} = config;
+    const [hasLoadedConfig, setHasLoadedConfig] = useState(false);
+    const [hasLoadedData, setHasLoadedData] = useState(dataSource ? false : true);
+    const [hasMounted, setHasMounted] = useState(update !== false);
+    const [loadedConfig, setLoadedConfig] = useState(undefined);
 
     /**
      * After load data
@@ -38,7 +37,8 @@ const Element = ({ config, update, formik }) => {
      */
     useEffect(() => {
         if (!hasLoadedConfig && typeof configSource === 'function') {
-            configSource(formik, config).then(loadConfigAfter).catch((err) => {});
+            configSource(formik, config).then(loadConfigAfter).catch((err) => {
+            });
         }
 
         return () => setHasLoadedConfig(false);
@@ -56,7 +56,7 @@ const Element = ({ config, update, formik }) => {
 
             return update !== false || formik.isValidating === true;
         });
-    }, [ update, formik.isValidating ]);
+    }, [update, formik.isValidating]);
 
     /**
      * If a valid dataSource exists, call the dataSource when the element is mounted.
@@ -67,17 +67,18 @@ const Element = ({ config, update, formik }) => {
      */
     useEffect(() => {
         if (typeof dataSource === 'function' && hasMounted) {
-            dataSource(formik, config).then(loadDataAfter).catch((err) => {});
+            dataSource(formik, config).then(loadDataAfter).catch((err) => {
+            });
         }
-    }, [ hasMounted, formik.initialValues ]);
+    }, [hasMounted, formik.initialValues]);
 
     return hasMounted && (
-        <ElementRenderer config={ loadedConfig || config } formik={ formik } />
+        <ElementRenderer config={loadedConfig || config} formik={formik}/>
     );
 }
 
 export default connect(
-    React.memo(Element, ({ config, formik, update }, nextProps) => (
+    React.memo(Element, ({config, formik, update}, nextProps) => (
         update === nextProps.update
         && shallowequal(config, nextProps.config)
         && formik.initialValues === nextProps.formik.initialValues

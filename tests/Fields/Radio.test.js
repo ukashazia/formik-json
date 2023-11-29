@@ -1,17 +1,12 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, mount } from 'enzyme';
-import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer
-} from '../test-utils'
-import { Form } from 'src';
+import {configure, mount} from 'enzyme';
+import {checkConsoleError, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('Radio', () => {
     const config = {
@@ -34,12 +29,14 @@ describe('Radio', () => {
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            radio: radio
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                radio: radio
+            }
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 

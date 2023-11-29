@@ -1,24 +1,19 @@
 import expect from 'expect'
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import {configure, mount} from 'enzyme';
+import {checkConsoleError, prepareField, prepareForm, restoreConsoleError} from '../test-utils'
 import {
-    checkConsoleError,
-    restoreConsoleError,
-    prepareForm,
-    prepareField,
-    prepareContainer
-} from '../test-utils'
-import {
-    onSuggestionsFetchRequested,
-    onSuggestionsClearRequested,
     getSuggestionValue,
+    onSuggestionsClearRequested,
+    onSuggestionsFetchRequested,
     renderSuggestion
 } from '../../demo/src/source/autocomplete';
 
-import { Form } from 'src';
+import {Form} from 'src';
 
 import Adapter from 'enzyme-adapter-react-16'
-configure({ adapter: new Adapter() });
+
+configure({adapter: new Adapter()});
 
 describe('Autocomplete', () => {
     const config = {
@@ -39,22 +34,26 @@ describe('Autocomplete', () => {
 
     beforeEach(() => checkConsoleError())
 
-    afterEach(() =>  restoreConsoleError())
+    afterEach(() => restoreConsoleError())
 
     it('renders', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            autocomplete: autocomplete
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                autocomplete: autocomplete
+            }
+        })} />);
         expect(wrapper.exists()).toEqual(true);
     });
 
     it('shows suggestions on change and focus', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            autocomplete: autocomplete
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                autocomplete: autocomplete
+            }
+        })} />);
 
         wrapper.find('.react-autosuggest__input').simulate('change', {
-            target: { value: "Uni" }
+            target: {value: "Uni"}
         });
 
         wrapper.find('.react-autosuggest__input').prop('onFocus')()
@@ -63,12 +62,14 @@ describe('Autocomplete', () => {
     });
 
     it('clears suggestions', () => {
-        const wrapper = mount(<Form { ...prepareForm({ elements: {
-            autocomplete: autocomplete
-        } }) } />);
+        const wrapper = mount(<Form {...prepareForm({
+            elements: {
+                autocomplete: autocomplete
+            }
+        })} />);
 
         wrapper.find('.react-autosuggest__input').simulate('change', {
-            target: { value: "Uni" }
+            target: {value: "Uni"}
         });
         wrapper.find('.react-autosuggest__input').prop('onFocus')();
 
@@ -76,7 +77,7 @@ describe('Autocomplete', () => {
         expect(wrapper.find('.react-autosuggest__suggestions-container').html()).toInclude('United Kingdom')
 
         wrapper.find('.react-autosuggest__input').simulate('change', {
-            target: { value: "" }
+            target: {value: ""}
         });
         wrapper.find('.react-autosuggest__input').prop('onFocus')();
 
